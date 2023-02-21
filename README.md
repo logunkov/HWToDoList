@@ -3,7 +3,12 @@
              <h1> ToDoList </h1>
 </div>
 
-#### ToDoList written in Swift 5.
+
+<p align="justify">Это простое приложение, в котором возможно отмечать выполнение пердустановленных задач..</p>
+<p align="justify">Задачи разделяются на простые и сложные, просроченные задачи отмечаются розовым цветом.</p>
+
+## L1M6 Home Work
+- [x] Переход от использования MVC к MVP.
 
 ## Getting Started
 
@@ -18,18 +23,15 @@ cd ./HWToDoList
 ```
 ## Features
 
-- [x] Application architecture - MVP
-- [x] Model - Task
-- [x] ViewCell - ToDoListCell
-- [x] Controller - TaskListViewController
-- [x] Presenter - Presenter
-- [x] Protocol - TaskManager
-- [x] Protocol - OrderedTaskManager
-- [x] Protocol - SectionForTaskManagerAdapter
-- [x] Protocol - Repository
+- [x] Отображение списка задач с разбиением на секции по критерию выполненности.
+- [x] Поддержка двух типов задач: обычных и важных.
+- [x] У важных задач есть 3 варианта приоритета: высокий, средний и низкий.
+- [x] Задачи сортируются по приоритету.
+- [x] Возможность менять состояние выполненности задач.
+- [x] Подсветка просроченных задач.
 
 ## Component Libraries
-
-#### TodoList uses the following framework:
-- [x] Foundation
-- [x] UIKit
+- [x] Написано на Swift 5.
+- [x] Поддерживается версия iOS 14.
+- [x] Зависимостей от сторонних библиотек нет.
+- [x] Необходим Xcode 14 или выше.
