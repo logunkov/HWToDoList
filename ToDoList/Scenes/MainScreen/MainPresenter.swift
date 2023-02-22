@@ -9,41 +9,25 @@ import Foundation
 
 /// IMainPresenter.
 protocol IMainPresenter {
-	
-	func viewIsReady()
-	func didTaskSelected(at indexPath: IndexPath)
+
+	func mapViewData() -> MainModel.ViewData
 }
 
 /// MainPresenter.
-class MainPresenter: IMainPresenter {
+final class MainPresenter: IMainPresenter {
 	
 	private var sectionManager: ISectionForTaskManagerAdapter!
-	private weak var view: IMainViewController!
 	
-	/// Create MainPresenter.
-	/// - Parameters:
-	///   - view: View
-	///   - sectionManager: ISectionForTaskManagerAdapter
-	init(view: IMainViewController, sectionManager: ISectionForTaskManagerAdapter!) {
+	/// CreateMainPresenter.
+	/// - Parameter sectionManager: SectionForTaskManagerAdapter
+	init(sectionManager: ISectionForTaskManagerAdapter!) {
 		self.sectionManager = sectionManager
-		self.view = view
 	}
 	
-	/// View is ready.
-	func viewIsReady() {
-		view?.render(viewData: mapViewData())
-	}
-
-	/// Did task selected.
-	/// - Parameter indexPath: indexPath
-	func didTaskSelected(at indexPath: IndexPath) {
-		let section = sectionManager.getSection(forIndex: indexPath.section)
-		let task = sectionManager.getTasksForSection(section: section)[indexPath.row]
-		task.isCompleted.toggle()
-		view.render(viewData: mapViewData())
-	}
-	
-	private func mapViewData() -> MainModel.ViewData {
+	/// mapViewData.
+	/// - Returns: ViewData
+	func mapViewData() -> MainModel.ViewData {
+		
 		var sections = [MainModel.ViewData.Section]()
 		for section in sectionManager.getSections() {
 			let sectionData = MainModel.ViewData.Section(
@@ -58,10 +42,12 @@ class MainPresenter: IMainPresenter {
 	}
 
 	private func mapTasksData(tasks: [Task]) -> [MainModel.ViewData.Task] {
+		
 		tasks.map{ mapTaskData(task: $0) }
 	}
 
 	private func mapTaskData(task: Task) -> MainModel.ViewData.Task {
+		
 		if let task = task as? ImportantTask {
 			let result = MainModel.ViewData.ImportantTask(
 				name: task.name,

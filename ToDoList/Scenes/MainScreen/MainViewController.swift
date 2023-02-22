@@ -16,13 +16,14 @@ protocol IMainViewController: AnyObject {
 final class MainViewController: UITableViewController {
 	
 	var viewData: MainModel.ViewData = MainModel.ViewData(tasksBySections: [])
-	var presenter: IMainPresenter?
+	var interactor: IMainInteractor?
 	
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
+		self.navigationController?.isNavigationBarHidden = true
 		setupView()
-		presenter?.viewIsReady()
+		interactor?.viewIsReady()
 	}
 	
 	private func setupView() {
@@ -93,14 +94,14 @@ final class MainViewController: UITableViewController {
 			isCompletedAction = UIContextualAction(
 				style: task.isDone ? .destructive : .normal,
 				title: task.isDone ? "undone" : "done") { _, _, complete in
-					self.presenter?.didTaskSelected(at: indexPath)
+					self.interactor?.didTaskSelected(at: indexPath)
 				complete(true)
 			}
 		case .regularTask(let task):
 			isCompletedAction = UIContextualAction(
 				style: task.isDone  ? .destructive : .normal,
 				title: task.isDone  ? "undone" : "done") { _, _, complete in
-					self.presenter?.didTaskSelected(at: indexPath)
+					self.interactor?.didTaskSelected(at: indexPath)
 				complete(true)
 			}
 		}

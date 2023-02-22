@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	
 	var window: UIWindow?
 	
@@ -16,23 +16,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		
 		guard let winScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: winScene)
-		window.rootViewController = assembly()
+		window.rootViewController = createTabBar()
 		window.makeKeyAndVisible()
 		self.window = window
 	}
 	
-	private func assembly() -> UIViewController {
+	private func assemblyLogin() -> UIViewController {
 		
-		let viewController = MainViewController()
-		
-		let taskManager = OrderedTaskManager(taskManager: TaskManager())
-		let repository: ITaskRepository = TaskRepositoryStub()
-		taskManager.addTasks(tasks: repository.getAll())
-		let sections = SectionForTaskManagerAdapter(taskManager: taskManager)
-		
-		let presenter = MainPresenter(view: viewController, sectionManager: sections)
-		viewController.presenter = presenter
-		
+		let storyboard = UIStoryboard(name: "LoginScene", bundle: Bundle.main)
+		guard let viewController = storyboard.instantiateViewController(withIdentifier: "LoginScene") as? LoginViewController
+		else {
+			fatalError("Not found Maim.storyboard LoginViewController")
+		}
+
 		return viewController
+	}
+		
+	private func createTabBar() -> UITabBarController {
+		let tabBar = UITabBarController()
+		tabBar.viewControllers = [createaAssemblyLogin()]
+		return tabBar
+	}
+	
+	private func createaAssemblyLogin() -> UINavigationController {
+		UINavigationController(rootViewController: assemblyLogin())
 	}
 }

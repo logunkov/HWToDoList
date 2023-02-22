@@ -1,5 +1,5 @@
 //
-//  MainModel.swift
+//  MainModels.swift
 //  ToDoList
 //
 //  Created by Constantin on 21.02.2023.
