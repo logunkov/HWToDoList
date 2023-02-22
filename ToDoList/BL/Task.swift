@@ -7,30 +7,30 @@
 
 import Foundation
 
-/// Task
+/// Create task.
 class Task {
 	
-	/// Name task
+	/// Name task.
 	let name: String
 	
-	/// Task is completed
+	/// Task is completed.
 	var isCompleted: Bool
 	
-	/// Create class task
-	/// - Parameter name: name task
+	/// Create class task.
+	/// - Parameter name: name task.
 	init (name: String, isCompleted: Bool = false) {
 		self.name = name
 		self.isCompleted = isCompleted
 	}
 }
 
-/// Regular task
+/// Create regular task.
 final class RegularTask: Task  {}
 
-/// Important Task
+/// Create important Task.
 final class ImportantTask: Task {
 	
-	/// Enum priority task
+	/// Enum priority task.
 	enum Priority: Int, CaseIterable {
 		
 		case low
@@ -38,10 +38,10 @@ final class ImportantTask: Task {
 		case high
 	}
 	
-	/// Priority task
+	/// Priority task.
 	var priority: Priority
 	
-	/// Date task
+	/// Date task.
 	var date: Date {
 		switch priority {
 		case .low:
@@ -53,27 +53,12 @@ final class ImportantTask: Task {
 		}
 	}
 	
-	/// Create class importantTask
+	/// Create class importantTask.
 	/// - Parameters:
-	///   - name: name ImportantTask
-	///   - priority: priority ImportantTask
+	///   - name: name ImportantTask.
+	///   - priority: priority ImportantTask.
 	init(name: String, priority: Priority) {
 		self.priority = priority
 		super.init(name: name)
-	}
-}
-
-extension ImportantTask.Priority: CustomStringConvertible {
-	
-	/// Description important task
-	var description: String {
-		switch self {
-		case .low:
-			return "!"
-		case .medium:
-			return "!!"
-		case .high :
-			return "!!!"
-		}
 	}
 }

@@ -5,41 +5,40 @@
 //  Created by Constantin on 18.02.2023.
 //
 
-
-/// OrderedTaskManager
+/// Presents a list of tasks sorted by priority.
 final class OrderedTaskManager: ITaskManager {
 	
 	private let taskManager: ITaskManager
 	
-	/// Create OrderedTaskManager
+	/// Create OrderedTaskManager.
 	/// - Parameter taskManager: ITaskManager
 	init(taskManager: ITaskManager) {
 		
 		self.taskManager = taskManager
 	}
 	
-	/// Get all tasks
+	/// Get all tasksю
 	/// - Returns: [Task]
 	public func allTasks() -> [Task] {
 		
 		sorted(tasks: taskManager.allTasks())
 	}
 	
-	/// Get all copleted tasks
+	/// Get all copleted tasks.
 	/// - Returns: [Task]
 	public func completedTasks() -> [Task] {
 		
 		sorted(tasks: taskManager.completedTasks())
 	}
 	
-	/// Get all uncopleted tasks
+	/// Get all uncopleted tasks.
 	/// - Returns: [Task]
 	public func uncompletedTasks() -> [Task] {
 		
 		sorted(tasks: taskManager.uncompletedTasks())
 	}
 	
-	/// Add task
+	/// Add task.
 	/// - Parameter tasks: [Task]
 	public func addTasks(tasks: [Task]) {
 		

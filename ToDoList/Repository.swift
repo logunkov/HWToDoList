@@ -6,15 +6,15 @@
 //
 
 /// IRepository
-protocol IRepository {
+protocol ITaskRepository {
 	
 	func getAll() -> [Task]
 }
 
-/// StubRepository
-final class StubRepository: IRepository {
+/// Create StubRepository.
+final class TaskRepositoryStub: ITaskRepository {
 	
-	/// Get all tasks
+	/// Get all tasks.
 	/// - Returns: tasks
 	public func getAll() -> [Task] {
 		
@@ -24,12 +24,14 @@ final class StubRepository: IRepository {
 			let isImportantTask = Bool.random()
 			
 			if isImportantTask {
-				taskList.append(ImportantTask(name: "Task №\(index)", priority: ImportantTask.Priority.allCases.randomElement()!))
+				taskList.append(
+					ImportantTask(name: "Task №\(index)",
+								  priority: ImportantTask.Priority.allCases.randomElement()!))
 			} else {
 				taskList.append(RegularTask(name: "Task №\(index)"))
 			}
 		}
-
+		
 		taskList.forEach { task in
 			task.isCompleted = Bool.random()
 		}
