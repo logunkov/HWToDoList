@@ -27,8 +27,7 @@ final class LoginWorker: ILoginWorker {
 	/// Login verification.
 	func login(login: String, password: String) -> LoginDTO {
 		
-//		if login == "Admin" && password == "pa$$32!" {
-		if login == "1" && password == "2" {
+		if login == "Admin" && password == "pa$$32!" {
 			return LoginDTO(
 				success: 1,
 				login: login,

@@ -20,13 +20,8 @@ class LoginConfigurator: ILoginConfigurator {
 		
 		let viewController = MainViewController()
 		viewController.modalPresentationStyle = .overFullScreen
-		let taskManager = OrderedTaskManager(taskManager: TaskManager())
-		let repository: ITaskRepository = TaskRepositoryStub()
-		taskManager.addTasks(tasks: repository.getAllTasks())
 		
-		let sections = SectionForTaskManagerAdapter(taskManager: taskManager)
-		let interactor = MainInteractor(view: viewController, sectionManager: sections)
-		viewController.interactor = interactor
+		viewController.interactor = MainInteractor(presenter: MainPresenter(viewController: viewController))
 		
 		return viewController
 	}

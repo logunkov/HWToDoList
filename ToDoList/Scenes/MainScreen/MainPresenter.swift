@@ -10,57 +10,23 @@ import Foundation
 /// IMainPresenter.
 protocol IMainPresenter {
 
-	func mapViewData() -> MainModel.ViewData
+	func present(responce: MainModel.ViewData)
 }
 
 /// MainPresenter.
 final class MainPresenter: IMainPresenter {
 	
-	private var sectionManager: ISectionForTaskManagerAdapter!
+	private weak var viewController: IMainViewController?
 	
 	/// CreateMainPresenter.
 	/// - Parameter sectionManager: SectionForTaskManagerAdapter
-	init(sectionManager: ISectionForTaskManagerAdapter!) {
-		self.sectionManager = sectionManager
+	init(viewController: IMainViewController?) {
+		
+		self.viewController = viewController
 	}
 	
-	/// mapViewData.
-	/// - Returns: ViewData
-	func mapViewData() -> MainModel.ViewData {
+	func present(responce: MainModel.ViewData) {
 		
-		var sections = [MainModel.ViewData.Section]()
-		for section in sectionManager.getSections() {
-			let sectionData = MainModel.ViewData.Section(
-				title: section.title,
-				tasks: mapTasksData(tasks: sectionManager.getTasksForSection(section: section) )
-			)
-
-			sections.append(sectionData)
-		}
-
-		return MainModel.ViewData(tasksBySections: sections)
-	}
-
-	private func mapTasksData(tasks: [Task]) -> [MainModel.ViewData.Task] {
-		
-		tasks.map{ mapTaskData(task: $0) }
-	}
-
-	private func mapTaskData(task: Task) -> MainModel.ViewData.Task {
-		
-		if let task = task as? ImportantTask {
-			let result = MainModel.ViewData.ImportantTask(
-				name: task.name,
-				isDone: task.isCompleted,
-				isOverdue: task.date < Date(),
-				deadLine: "Deadline: \(task.date.formatted())",
-				priority: "\(task.priority)"
-			)
-			return .importantTask(result)
-		} else {
-			return .regularTask(MainModel.ViewData.RegularTask(
-				name: task.name,
-				isDone: task.isCompleted))
-		}
+		viewController?.render(viewData: responce)
 	}
 }
