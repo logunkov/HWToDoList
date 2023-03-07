@@ -51,24 +51,12 @@ final class MainViewController: UITableViewController {
 			contentConfiguration.secondaryText = task.deadLine
 			contentConfiguration.secondaryTextProperties.color = task.isOverdue ? .red : .black
 			
-			if task.isDone {
-				contentConfiguration.image = UIImage(systemName: "checkmark.circle")
-				contentConfiguration.imageProperties.tintColor = .systemGreen
-			} else {
-				contentConfiguration.image = UIImage(systemName: "circle")
-				contentConfiguration.imageProperties.tintColor = .black
-			}
-			
+			contentConfiguration = contentConfigurationCell(isDone: task.isDone, contentConfiguration: contentConfiguration)
+
 		case .regularTask(let task):
 			contentConfiguration.text = task.name
 
-			if task.isDone {
-				contentConfiguration.image = UIImage(systemName: "checkmark.circle")
-				contentConfiguration.imageProperties.tintColor = .systemGreen
-			} else {
-				contentConfiguration.image = UIImage(systemName: "circle")
-				contentConfiguration.imageProperties.tintColor = .black
-			}
+			contentConfiguration = contentConfigurationCell(isDone: task.isDone, contentConfiguration: contentConfiguration)
 		}
 		
 		cell.tintColor = .red
@@ -79,37 +67,23 @@ final class MainViewController: UITableViewController {
 		return cell
 	}
 	
-	override func tableView(
-		_ tableView: UITableView,
-		trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-	) -> UISwipeActionsConfiguration? {
+	private func contentConfigurationCell(isDone: Bool, contentConfiguration: UIListContentConfiguration) ->  UIListContentConfiguration {
 		
-		let isCompletedAction: UIContextualAction
-		let tasks = viewData.tasksBySections[indexPath.section].tasks
-		let taskData = tasks[indexPath.row]
+		var contentConfiguration = contentConfiguration
 		
-		switch taskData {
-			
-		case .importantTask(let task):
-			isCompletedAction = UIContextualAction(
-				style: task.isDone ? .destructive : .normal,
-				title: task.isDone ? "undone" : "done") { _, _, complete in
-					self.interactor?.didTaskSelected(at: indexPath)
-				complete(true)
-			}
-		case .regularTask(let task):
-			isCompletedAction = UIContextualAction(
-				style: task.isDone  ? .destructive : .normal,
-				title: task.isDone  ? "undone" : "done") { _, _, complete in
-					self.interactor?.didTaskSelected(at: indexPath)
-				complete(true)
-			}
+		if isDone {
+			contentConfiguration.image = UIImage(systemName: "checkmark.circle")
+			contentConfiguration.imageProperties.tintColor = .systemGreen
+		} else {
+			contentConfiguration.image = UIImage(systemName: "circle")
+			contentConfiguration.imageProperties.tintColor = .black
 		}
-
-		let configuration = UISwipeActionsConfiguration(actions: [isCompletedAction])
-		configuration.performsFirstActionWithFullSwipe = true
-
-		return configuration
+		
+		return contentConfiguration
+	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		self.interactor?.didTaskSelected(at: indexPath)
 	}
 }
 	

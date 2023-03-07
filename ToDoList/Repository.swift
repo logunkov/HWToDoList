@@ -8,7 +8,7 @@
 /// IRepository
 protocol ITaskRepository {
 	
-	func getAll() -> [Task]
+	func getAllTasks() -> [Task]
 }
 
 /// Create StubRepository.
@@ -16,7 +16,7 @@ final class TaskRepositoryStub: ITaskRepository {
 	
 	/// Get all tasks.
 	/// - Returns: tasks
-	public func getAll() -> [Task] {
+	public func getAllTasks() -> [Task] {
 		
 		var taskList = [Task]()
 		

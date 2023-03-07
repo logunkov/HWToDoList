@@ -17,6 +17,7 @@ protocol ILoginViewController: AnyObject {
 final class LoginViewController: UIViewController {
 	
 	private var interactor: ILoginInteractor?
+	private let router: ILoginRouter = LoginRouter.shared
 	
 	@IBOutlet weak var textFieldLogin: UITextField!
 	@IBOutlet weak var textFieldPass: UITextField!
@@ -42,14 +43,14 @@ final class LoginViewController: UIViewController {
 		let presenter = LoginPresenter(viewController: self)
 		interactor = LoginInteractor(worker: worker, presenter: presenter)
 	}
-
+	
 }
 
 extension LoginViewController: ILoginViewController {
 	
 	/// Create render.
 	func render(viewModel: LoginModels.ViewModel) {
-				
+		
 		let alert: UIAlertController
 		
 		if viewModel.success {
@@ -68,25 +69,11 @@ extension LoginViewController: ILoginViewController {
 		
 		alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {_ in
 			if viewModel.success {
-				let mainViewController = self.assemblyMain()
-				self.navigationController?.pushViewController(mainViewController, animated: true)
+				self.router.showMain(from: self)
 			}
 		}))
 		present(alert, animated: true, completion: nil)
 	}
-	
-	private func assemblyMain() -> UIViewController {
-		
-		let viewController = MainViewController()
-		let taskManager = OrderedTaskManager(taskManager: TaskManager())
-		let repository: ITaskRepository = TaskRepositoryStub()
-		taskManager.addTasks(tasks: repository.getAll())
-	
-		let sections = SectionForTaskManagerAdapter(taskManager: taskManager)
-		let interactor = MainInteractor(view: viewController, sectionManager: sections)
-		viewController.interactor = interactor
-		
-		return viewController
-	}
 
 }
+

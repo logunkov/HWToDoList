@@ -16,7 +16,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		
 		guard let winScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: winScene)
-		window.rootViewController = createTabBar()
+		window.rootViewController = assemblyLogin()
 		window.makeKeyAndVisible()
 		self.window = window
 	}
@@ -30,15 +30,5 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		}
 
 		return viewController
-	}
-		
-	private func createTabBar() -> UITabBarController {
-		let tabBar = UITabBarController()
-		tabBar.viewControllers = [createaAssemblyLogin()]
-		return tabBar
-	}
-	
-	private func createaAssemblyLogin() -> UINavigationController {
-		UINavigationController(rootViewController: assemblyLogin())
 	}
 }
