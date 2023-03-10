@@ -94,7 +94,7 @@ final class MainInteractor: IMainInteractor {
 		
 		let taskManager = OrderedTaskManager(taskManager: TaskManager())
 		let repository: ITaskRepository = TaskRepositoryStub()
-		taskManager.addTasks(tasks: repository.getAllTasks())
+		taskManager.addTasks(tasks: repository.getTasks())
 		let sections = SectionForTaskManagerAdapter(taskManager: taskManager)
 		
 		return sections

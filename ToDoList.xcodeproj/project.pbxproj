@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				BD4CD4CB2998BCB9007906E6 /* BusinessLogic */,
-				BD06F6E5299B979E000D8135 /* Delegates */,
 				BD4CD4CC2998BCC3007906E6 /* Managers */,
+				BD06F6E5299B979E000D8135 /* Delegates */,
 				BD5C62AD29A50D0B00902D82 /* Scenes */,
 				BD4CD4BE2998B1AB007906E6 /* Assets.xcassets */,
 				BD4CD4C02998B1AB007906E6 /* LaunchScreen.storyboard */,
@@ -113,8 +113,8 @@
 		BD4CD4CB2998BCB9007906E6 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
-				BD4CD4D02998FC95007906E6 /* TaskManager.swift */,
 				BD4CD4C92998BC08007906E6 /* Task.swift */,
+				BD4CD4D02998FC95007906E6 /* TaskManager.swift */,
 			);
 			path = BusinessLogic;
 			sourceTree = "<group>";
@@ -122,8 +122,8 @@
 		BD4CD4CC2998BCC3007906E6 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				BD5C62A929A5041300902D82 /* ITaskManager.swift */,
 				BD13136B299C9B60002FFA4F /* Repository.swift */,
+				BD5C62A929A5041300902D82 /* ITaskManager.swift */,
 				BD1D1CF029A0DD8900243114 /* OrderedTaskManager.swift */,
 				BD1D1CF229A0DE2400243114 /* SectionForTaskManagerAdapter.swift */,
 			);

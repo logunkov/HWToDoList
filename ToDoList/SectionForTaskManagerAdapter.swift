@@ -5,7 +5,7 @@
 //  Created by Constantin on 18.02.2023.
 //
 
-/// ISectionForTaskManagerAdapter.
+/// Протокол для SectionForTaskManagerAdapter.
 protocol ISectionForTaskManagerAdapter {
 	func getSections() -> [Section]
 	func getTasksForSection(section: Section) -> [Task]
@@ -14,7 +14,7 @@ protocol ISectionForTaskManagerAdapter {
 	func getSection(forIndex index: Int) -> Section
 }
 
-/// enum Section.
+/// Список секций.
 enum Section: CaseIterable {
 	case completed
 	case uncompleted
@@ -29,44 +29,42 @@ enum Section: CaseIterable {
 	}
 }
 
-/// Creation SectionForTaskManagerAdapter.
+/// Адаптер для секций списка задач.
 final class SectionForTaskManagerAdapter: ISectionForTaskManagerAdapter {
 	
 	private let sections: [Section] = [.uncompleted, .completed]
 	
 	private let taskManager: ITaskManager
 	
-	/// Create section for task manager adapter.
-	/// - Parameter taskManager: ITaskManager.
 	init(taskManager: ITaskManager) {
 		
 		self.taskManager = taskManager
 	}
 	
-	/// Get sections array.
-	/// - Returns: [name sections]
+	/// Получение списка секций.
+	/// - Returns: Массив секций
 	func getSections() -> [Section] {
 		sections
 	}
 	
-	/// Get sections index.
-	/// - Parameter section: name section.
-	/// - Returns: number
+	/// Получить индекс секции.
+	/// - Parameter section: Название секции.
+	/// - Returns: Номер секции
 	func getSectionIndex(section: Section) -> Int {
 		sections.firstIndex(of: section) ?? 0
 	}
 	
-	/// Get sections by index.
-	/// - Parameter index: number of index.
-	/// - Returns: name section.
+	/// Получить индекс по секции.
+	/// - Parameter index: Номер секции.
+	/// - Returns: Секцию.
 	func getSection(forIndex index: Int) -> Section {
 		let i = min(index, sections.count - 1)
 		return sections[i]
 	}
 	
-	/// Get tasks for section.
-	/// - Parameter section: name section.
-	/// - Returns: [Task]
+	/// Получить задания для секциию
+	/// - Parameter section: Секция.
+	/// - Returns: Массив заданий.
 	func getTasksForSection(section: Section) -> [Task] {
 		switch section {
 		case .completed:
@@ -76,9 +74,9 @@ final class SectionForTaskManagerAdapter: ISectionForTaskManagerAdapter {
 		}
 	}
 	
-	/// Get sections and index.
-	/// - Parameter task: task.
-	/// - Returns: name and number.
+	/// Получить задание и номер для секциию
+	/// - Parameter task: Задание.
+	/// - Returns: Секция и номер секции.
 	func taskSectionAndIndex(task: Task) -> (section: Section, index: Int)? {
 		for section in sections {
 			let index = getTasksForSection(section: section).firstIndex{ task === $0 }

@@ -5,20 +5,21 @@
 //  Created by Constantin on 21.02.2023.
 //
 
-/// ITaskManager.
+/// Протокол для TaskManager.
 protocol ITaskManager {
 	
 	func allTasks() -> [Task]
 	func completedTasks() -> [Task]
 	func uncompletedTasks() -> [Task]
+	func addTask(task: Task)
 	func addTasks(tasks: [Task])
 }
 
-extension TaskManager: ITaskManager { }
+extension TaskManager: ITaskManager {}
 
 extension ImportantTask.Priority: CustomStringConvertible {
 	
-	/// Description important task.
+	/// Строковое представление ImportantTask.
 	var description: String {
 		
 		switch self {

@@ -5,18 +5,18 @@
 //  Created by Constantin on 15.02.2023.
 //
 
-/// IRepository
+/// Протокол для TaskRepositoryStub.
 protocol ITaskRepository {
 	
-	func getAllTasks() -> [Task]
+	func getTasks() -> [Task]
 }
 
-/// Create StubRepository.
+/// Заглушка репозиторий.
 final class TaskRepositoryStub: ITaskRepository {
 	
-	/// Get all tasks.
-	/// - Returns: tasks
-	public func getAllTasks() -> [Task] {
+	/// Создаем список всех заданий.
+	/// - Returns: Массив заданий.
+	public func getTasks() -> [Task] {
 		
 		var taskList = [Task]()
 		
