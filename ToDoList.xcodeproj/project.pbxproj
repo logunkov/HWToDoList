@@ -99,8 +99,8 @@
 		BD4CD4B42998B1A9007906E6 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				BD4CD4CB2998BCB9007906E6 /* BusinessLogic */,
 				BD06F6E5299B979E000D8135 /* Delegates */,
-				BD4CD4CB2998BCB9007906E6 /* BL */,
 				BD4CD4CC2998BCC3007906E6 /* Managers */,
 				BD5C62AD29A50D0B00902D82 /* Scenes */,
 				BD4CD4BE2998B1AB007906E6 /* Assets.xcassets */,
@@ -110,13 +110,13 @@
 			path = ToDoList;
 			sourceTree = "<group>";
 		};
-		BD4CD4CB2998BCB9007906E6 /* BL */ = {
+		BD4CD4CB2998BCB9007906E6 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
-				BD4CD4C92998BC08007906E6 /* Task.swift */,
 				BD4CD4D02998FC95007906E6 /* TaskManager.swift */,
+				BD4CD4C92998BC08007906E6 /* Task.swift */,
 			);
-			path = BL;
+			path = BusinessLogic;
 			sourceTree = "<group>";
 		};
 		BD4CD4CC2998BCC3007906E6 /* Managers */ = {

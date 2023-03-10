@@ -54,7 +54,7 @@ final class OrderedTaskManager: ITaskManager {
 			}
 			
 			if let task0 = $0 as? ImportantTask, let task1 = $1 as? ImportantTask {
-				return task0.priority.rawValue > task1.priority.rawValue
+				return task0.taskPriority.rawValue > task1.taskPriority.rawValue
 			}
 		
 			return true

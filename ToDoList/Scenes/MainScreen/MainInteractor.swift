@@ -78,9 +78,9 @@ final class MainInteractor: IMainInteractor {
 			let result = MainModel.ViewData.ImportantTask(
 				name: task.name,
 				isDone: task.isCompleted,
-				isOverdue: task.date < Date(),
-				deadLine: "Deadline: \(task.date.formatted())",
-				priority: "\(task.priority)"
+				isOverdue: task.deadLine < Date(),
+				deadLine: "Deadline: \(task.deadLine.formatted())",
+				priority: "\(task.taskPriority)"
 			)
 			return .importantTask(result)
 		} else {
