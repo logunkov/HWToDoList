@@ -7,39 +7,29 @@
 
 import Foundation
 
-/// ILoginInteractor.
+/// Протокол для LoginInteractor.
 protocol ILoginInteractor {
 	
 	func login(request: LoginModels.Request)
 }
 
-/// LoginInteractor.
+/// Интерактор для Login.
 final class LoginInteractor: ILoginInteractor {
 	
 	private var worker: ILoginWorker
 	private var presenter: ILoginPresenter?
 	
-	/// Create LoginInteractorю
-	/// - Parameters:
-	///   - worker: LoginWorker
-	///   - presenter: LoginPresenter
 	init(worker: ILoginWorker, presenter: ILoginPresenter) {
 		
 		self.worker = worker
 		self.presenter = presenter
 	}
 	
-	/// Login verificationю
-	/// - Parameter request: LoginModels
+	/// Запрос на вход в систему.
 	func login(request: LoginModels.Request) {
 		
 		let result = worker.login(login: request.login, password: request.password)
-		
-		let responce = LoginModels.Responce(
-			success: result.success == 1,
-			login: result.login,
-			lastLoginDate: result.lastLoginDate
-		)
+		let responce = LoginModels.Responce(success: result)
 		
 		presenter?.present(responce: responce)
 	}

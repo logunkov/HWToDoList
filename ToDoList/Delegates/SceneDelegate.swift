@@ -16,19 +16,25 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		
 		guard let winScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: winScene)
-		window.rootViewController = assemblyLogin()
+		window.rootViewController = assembly()
 		window.makeKeyAndVisible()
 		self.window = window
 	}
 	
-	private func assemblyLogin() -> UIViewController {
+	func assembly() -> UIViewController {
+		let loginViewController = LoginAssembler().assembly()
+		let todoListViewController = LoginAssembler().assembly()
+//		let todoListViewController = TodoListAssembler().assembly()
 		
-		let storyboard = UIStoryboard(name: "LoginScene", bundle: Bundle.main)
-		guard let viewController = storyboard.instantiateViewController(withIdentifier: "LoginScene") as? LoginViewController
-		else {
-			fatalError("Not found Maim.storyboard LoginViewController")
-		}
+		let router = LoginRouter(
+			loginViewController: loginViewController,
+			todoListViewController: todoListViewController
+		)
 
-		return viewController
+		if let loginViewController = loginViewController as? LoginViewController {
+			loginViewController.router = router
+		}
+		
+		return loginViewController
 	}
 }

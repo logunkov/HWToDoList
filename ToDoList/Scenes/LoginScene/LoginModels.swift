@@ -7,29 +7,26 @@
 
 import Foundation
 
-/// LoginModels.
+/// Модель входа в систему.
 enum LoginModels {
 	
-	/// Request
+	/// Запрос.
 	struct Request {
 		
 		var login: String
 		var password: String
 	}
 	
-	/// Responce.
+	/// Ответ.
 	struct Responce {
 		
 		var success: Bool
-		var login: String
-		var lastLoginDate: Date
 	}
 	
-	/// ViewModel.
-	struct ViewModel {
+	/// Данные для входа в систему.
+	enum ViewModel {
 		
-		var success: Bool
-		var userName: String
-		var lastLoginDate: String
+		case success
+		case failure(String)
 	}
 }

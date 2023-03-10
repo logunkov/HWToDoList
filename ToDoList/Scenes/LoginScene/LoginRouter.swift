@@ -7,21 +7,35 @@
 
 import UIKit
 
+/// Протокол для LoginRouter.
 protocol ILoginRouter {
 	
-	func showMain (from viewController: UIViewController)
+	func routeToTodoList()
+	func showError(message: String)
 }
 
-class LoginRouter: ILoginRouter {
+final class LoginRouter: ILoginRouter {
 	
-	static let shared = LoginRouter ()
-	private let configurator: ILoginConfigurator = LoginConfigurator()
+	private weak var loginViewController: UIViewController!
+	private let todoListViewController: UIViewController
 	
-	private init() {}
+	internal init(loginViewController: UIViewController!, todoListViewController: UIViewController) {
+		self.loginViewController = loginViewController
+		self.todoListViewController = todoListViewController
+	}
+
+	/// Показать TodoList.
+	func routeToTodoList() {
+		loginViewController.present(todoListViewController, animated: true)
+	}
 	
-	func showMain (from viewController: UIViewController) {
+	/// Показать ошибку.
+	func showError(message: String) {
+		let alert: UIAlertController
+		alert = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertController.Style.alert)
 		
-		let vc = configurator.assemblyMain()
-		viewController.present(vc, animated: true)
+		let action = UIAlertAction(title: "Ok", style: .destructive)
+		alert.addAction(action)
+		loginViewController.present(alert, animated: true, completion: nil)
 	}
 }

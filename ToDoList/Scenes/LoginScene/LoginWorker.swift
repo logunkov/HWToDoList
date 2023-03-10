@@ -7,39 +7,21 @@
 
 import Foundation
 
-/// LoginDTO.
-public struct LoginDTO {
-	
-	var success: Int
-	var login: String
-	var lastLoginDate: Date
-}
-
-/// ILoginWorker.
+/// Протокол для LoginWorker.
 protocol ILoginWorker {
 	
-	func login(login: String, password: String) -> LoginDTO
+	func login(login: String, password: String) -> Bool
 }
 
-/// LoginWorker
+/// Worker для Login.
 final class LoginWorker: ILoginWorker {
 	
-	/// Login verification.
-	func login(login: String, password: String) -> LoginDTO {
-		
-		if login == "Admin" && password == "pa$$32!" {
-			return LoginDTO(
-				success: 1,
-				login: login,
-				lastLoginDate: Date()
-			)
-		} else {
-			return LoginDTO(
-				success: 0,
-				login: login,
-				lastLoginDate: Date()
-			)
-		}
+	private let validLogin = "" // "Admin"
+	private let validPassword = "" // "pa$$32!"
+	
+	/// Проверка входа в систему.
+	func login(login: String, password: String) -> Bool {
+		login == validLogin && password == validPassword
 	}
 
 }
