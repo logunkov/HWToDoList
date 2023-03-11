@@ -13,7 +13,7 @@ protocol ILoginViewController: AnyObject {
 	func render(viewModel: LoginModels.ViewModel)
 }
 
-/// Controller для Login.
+/// ViewController для Login.
 final class LoginViewController: UIViewController {
 	
 	var interactor: ILoginInteractor?

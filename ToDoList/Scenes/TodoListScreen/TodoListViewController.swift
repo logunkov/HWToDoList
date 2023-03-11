@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  TodoListViewController.swift
 //  ToDoList
 //
 //  Created by Constantin on 12.02.2023.
@@ -7,23 +7,22 @@
 
 import UIKit
 
-/// IMainViewController
-protocol IMainViewController: AnyObject {
-	func render(viewData: MainModel.ViewData)
+/// Протокол для TodoListViewController.
+protocol ITodoListViewController: AnyObject {
+	func render(viewModel: TodoListModel.ViewModel)
 }
 
-/// MainViewController
-final class MainViewController: UITableViewController {
+/// ViewController для TodoList.
+final class TodoListViewController: UITableViewController {
 	
-	var viewData: MainModel.ViewData = MainModel.ViewData(tasksBySections: [])
-	var interactor: IMainInteractor?
+	var viewModel: TodoListModel.ViewModel = TodoListModel.ViewModel(tasksBySections: [])
+	var interactor: ITodoListInteractor?
 	
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
-		self.navigationController?.isNavigationBarHidden = true
 		setupView()
-		interactor?.viewIsReady()
+		interactor?.fetchData() //??
 	}
 	
 	private func setupView() {
@@ -32,11 +31,9 @@ final class MainViewController: UITableViewController {
 		self.view.backgroundColor = .systemBlue
 	}
 	
-	override func tableView(
-		_ tableView: UITableView,
-		cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		let tasks = viewData.tasksBySections[indexPath.section].tasks
+		let tasks = viewModel.tasksBySections[indexPath.section].tasks
 		let taskData = tasks[indexPath.row]
 		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 		var contentConfiguration = cell.defaultContentConfiguration()
@@ -83,47 +80,38 @@ final class MainViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		self.interactor?.didTaskSelected(at: indexPath)
+		interactor?.didTaskSelected(atIndex: TodoListModel.Request.TaskSelected(indexPath: indexPath))
 	}
 }
 	
-extension MainViewController: IMainViewController {
+extension TodoListViewController: ITodoListViewController {
 	
-	func render(viewData: MainModel.ViewData) {
-		self.viewData = viewData
+	/// Отрисовка.
+	func render(viewModel: TodoListModel.ViewModel) {
+		self.viewModel = viewModel
 		tableView.reloadData()
 	}
 }
 
-// Header & number Of Rows In Section
-extension MainViewController {
+extension TodoListViewController {
 	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		
-		viewData.tasksBySections.count
+		viewModel.tasksBySections.count
 	}
 	
-	override func tableView(
-		_ tableView: UITableView,
-		titleForHeaderInSection section: Int
-	) -> String? {
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		
-		viewData.tasksBySections[section].title
+		viewModel.tasksBySections[section].title
 	}
 	
-	override func tableView(
-		_ tableView: UITableView,
-		numberOfRowsInSection section: Int
-	) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-		let section = viewData.tasksBySections[section]
+		let section = viewModel.tasksBySections[section]
 		return section.tasks.count
 	}
 	
-	override func tableView(
-		_ tableView: UITableView,
-		willDisplayHeaderView view: UIView, forSection section: Int
-	) {
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 
 		guard let header = view as? UITableViewHeaderFooterView else { return }
 		header.textLabel?.textColor = .white

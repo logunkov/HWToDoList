@@ -23,8 +23,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	
 	func assembly() -> UIViewController {
 		let loginViewController = LoginAssembler().assembly()
-		let todoListViewController = LoginAssembler().assembly()
-//		let todoListViewController = TodoListAssembler().assembly()
+		let todoListViewController = TodoListAssembler().assembly()
 		
 		let router = LoginRouter(
 			loginViewController: loginViewController,

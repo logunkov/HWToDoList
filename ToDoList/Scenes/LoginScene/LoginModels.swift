@@ -7,17 +7,17 @@
 
 import Foundation
 
-/// Модель входа в систему.
+/// Вход в систему.
 enum LoginModels {
 	
-	/// Запрос.
+	/// Запрос логина и пароля.
 	struct Request {
 		
 		var login: String
 		var password: String
 	}
 	
-	/// Ответ.
+	/// Ответ о успешной авторизации.
 	struct Responce {
 		
 		var success: Bool
