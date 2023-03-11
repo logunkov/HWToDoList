@@ -9,14 +9,14 @@ import Foundation
 
 /// Протокол для TodoListInteractor.
 protocol ITodoListInteractor {
-	
+
 	func fetchData()
 	func didTaskSelected(atIndex: TodoListModel.Request.TaskSelected)
 }
 
 /// Interactor для TodoList.
 final class TodoListInteractor: ITodoListInteractor {
-		
+
 	private var sectionManager: ISectionForTaskManagerAdapter
 	private var presenter: ITodoListPresenter
 
@@ -24,7 +24,7 @@ final class TodoListInteractor: ITodoListInteractor {
 		self.sectionManager = sectionManager
 		self.presenter = presenter
 	}
-	
+
 	/// Извлечь данные.
 	func fetchData() {
 		var responseData = [TodoListModel.Response.SectionWithTasks]()
@@ -38,7 +38,7 @@ final class TodoListInteractor: ITodoListInteractor {
 		let response = TodoListModel.Response(data: responseData)
 		presenter.present(responce: response)
 	}
-	
+
 	/// Выбранное задание.
 	func didTaskSelected(atIndex index: TodoListModel.Request.TaskSelected) {
 		let section = sectionManager.getSection(forIndex: index.indexPath.section)
@@ -47,4 +47,3 @@ final class TodoListInteractor: ITodoListInteractor {
 		fetchData()
 	}
 }
-

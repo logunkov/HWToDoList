@@ -9,7 +9,7 @@ import Foundation
 
 /// Задания из списка.
 enum TodoListModel {
-	
+
 	/// Запрос на обновление после выбора задания из списка.
 	enum Request {
 		struct TaskSelected {
@@ -17,7 +17,7 @@ enum TodoListModel {
 			let indexPath: IndexPath
 		}
 	}
-	
+
 	/// Ответ на обновление после выбора задания из списка.
 	struct Response {
 		struct SectionWithTasks {
@@ -26,14 +26,14 @@ enum TodoListModel {
 		}
 		let data: [SectionWithTasks]
 	}
-	
+
 	/// Данные для заданий из списка.
 	struct ViewModel {
 		struct RegularTask {
 			let name: String
 			let isDone: Bool
 		}
-		
+
 		struct ImportantTask {
 			let name: String
 			let isDone: Bool
@@ -41,18 +41,17 @@ enum TodoListModel {
 			let deadLine: String
 			let priority: String
 		}
-		
+
 		enum Task {
 			case regularTask(RegularTask)
 			case importantTask(ImportantTask)
 		}
-		
+
 		struct Section {
 			let title: String
 			let tasks: [Task]
 		}
-		
+
 		let tasksBySections: [Section]
 	}
 }
-

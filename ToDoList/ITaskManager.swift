@@ -7,7 +7,7 @@
 
 /// Протокол для TaskManager.
 protocol ITaskManager {
-	
+
 	func allTasks() -> [Task]
 	func completedTasks() -> [Task]
 	func uncompletedTasks() -> [Task]
@@ -18,17 +18,17 @@ protocol ITaskManager {
 extension TaskManager: ITaskManager {}
 
 extension ImportantTask.Priority: CustomStringConvertible {
-	
+
 	/// Строковое представление ImportantTask.
 	var description: String {
-		
+
 		switch self {
-			
+
 		case .low:
 			return "!"
 		case .medium:
 			return "!!"
-		case .high :
+		case .high:
 			return "!!!"
 		}
 	}
